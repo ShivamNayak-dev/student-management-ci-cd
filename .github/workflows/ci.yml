@@ -1,4 +1,4 @@
-name: Spring Boot CI Pipeline
+name: Spring Boot CI/CD Pipeline
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
 
     runs-on: ubuntu-latest
 
@@ -29,3 +29,6 @@ jobs:
         with:
           name: student-management-ci-cd-jar
           path: target/*.jar
+
+      - name: Run application (CD Step)
+        run: java -jar target/student-management-ci-cd-0.0.1-SNAPSHOT.jar &
