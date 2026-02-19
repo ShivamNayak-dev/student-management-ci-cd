@@ -1,0 +1,23 @@
+name: Spring Boot CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["Spring Boot CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: student-management-ci-cd-jar
+          path: .
+
+      - name: Run application
+        run: java -jar student-management-ci-cd-0.0.1-SNAPSHOT.jar
